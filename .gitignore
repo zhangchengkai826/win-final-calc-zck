@@ -1,0 +1,4 @@
+*.ttf
+.vs
+bin
+obj
