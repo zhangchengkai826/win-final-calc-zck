@@ -41,7 +41,8 @@ namespace win_final_calc_zck
         }
         public static string ToLimitLengthString(double x, int limit)
         {
-            return "";
+            var fmtStr = string.Format("{{0:G{0}}}", limit);
+            return string.Format(fmtStr, x);
         }
         public static void ShowWarning(string msg)
         {

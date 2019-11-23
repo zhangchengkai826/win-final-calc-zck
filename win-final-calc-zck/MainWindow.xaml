@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:win_final_calc_zck"
         mc:Ignorable="d"
-        Title="Calculator (章成凯 2017302580093)" Height="600" Width="450" Loaded="Window_Loaded">
+        Title="Calculator (章成凯 2017302580093)" Height="600" Width="450" MinHeight="600" MinWidth="450" Loaded="Window_Loaded">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="35" />
             <Setter Property="FontFamily" Value="./Resources/fonts/#Indie Flower" />
         </Style>
         <Style TargetType="TextBox">
-            <Setter Property="FontSize" Value="50" />
+            <Setter Property="FontSize" Value="45" />
             <Setter Property="FontFamily" Value="./Resources/fonts/#Indie Flower" />
             <Setter Property="HorizontalContentAlignment" Value="Right" />
             <Setter Property="VerticalContentAlignment" Value="Bottom" />

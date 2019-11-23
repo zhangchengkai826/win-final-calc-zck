@@ -37,6 +37,7 @@ namespace win_final_calc_zck
             { Operation.DIV, OperationExtern.Div },
         };
         private static readonly int INPUT_LIMIT = 16;
+        private static readonly int PRECISION_LIMIT = 9;
         private Operation lastOp = Operation.UNSPECIFIED;
         /* use double instead of string or float as internal representation to preserve more precision in a series of operations */
         private double accumulatedResult = 0.0;
@@ -102,6 +103,7 @@ namespace win_final_calc_zck
         {
             lastOp = Operation.UNSPECIFIED;
             accumulatedResult = 0.0;
+            justPressOpBtn = false;
             ExprView.Text = "";
         }
         private void ClearAll(object sender, RoutedEventArgs e)
@@ -174,7 +176,7 @@ namespace win_final_calc_zck
                 throw new InvalidCalculationException("Overflow.");
             }
 
-            InputView.Text = result.ToString();
+            InputView.Text = Util.ToLimitLengthString(result, PRECISION_LIMIT);
             return result;
         }
         private void CalcFinal(object sender, RoutedEventArgs e)
