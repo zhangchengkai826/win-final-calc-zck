@@ -1,0 +1,7 @@
+#pragma once
+LIBRARY operation
+EXPORTS
+	add
+	sub
+	mul
+	div
