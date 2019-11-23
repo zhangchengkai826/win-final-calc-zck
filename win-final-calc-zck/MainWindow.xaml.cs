@@ -38,17 +38,17 @@ namespace win_final_calc_zck
         /* use double instead of string or float as internal representation to preserve more precision in a series of operations */
         private double accumulatedResult = 0.0;
         /* when we enter an operation button, e.g. +, the InputView won't be immediately cleared, but will be cleared when user enter the next input */
-        private bool prepareToClear = false;
+        private bool justPressOpBtn = false;
         public MainWindow()
         {
             InitializeComponent();
         }
         private void EnterInput(object sender, RoutedEventArgs e)
         {
-            if(prepareToClear)
+            if(justPressOpBtn)
             {
                 ClearInputView(sender, e);
-                prepareToClear = false;
+                justPressOpBtn = false;
             }
             var input = Util.RetrieveTextFromBtn(sender as Button);
             try
@@ -111,27 +111,35 @@ namespace win_final_calc_zck
         }
         private void DoOperation(object sender, RoutedEventArgs e)
         {
-            prepareToClear = true;
-            
             var input = Util.RetrieveTextFromBtn(sender as Button);
-            ExprView.Text += string.Format("{0}{1}", InputView.Text, input);
             var op = strToOpMap[input];
+            var lastInputViewText = InputView.Text;
             
-            if(lastOp != Operation.UNSPECIFIED)
+            if (justPressOpBtn)
             {
-                /* squash */
-                var oprand = Convert.ToDouble(InputView.Text);
-                var opFunc = opToFuncMap[lastOp];
-                var result = opFunc(accumulatedResult, oprand);
-                InputView.Text = result.ToString();
-                accumulatedResult = result;
+                /* the user just pressed an op button, so this time, only change op but do not perform calculation */
+                ExprView.Text = ExprView.Text.Substring(0, ExprView.Text.Length - 2);
             }
             else
             {
-                /* assign init val */
-                accumulatedResult = Convert.ToDouble(InputView.Text);
+                if (lastOp != Operation.UNSPECIFIED)
+                {
+                    /* squash */
+                    var oprand = Convert.ToDouble(InputView.Text);
+                    var opFunc = opToFuncMap[lastOp];
+                    var result = opFunc(accumulatedResult, oprand);
+                    InputView.Text = result.ToString();
+                    accumulatedResult = result;
+                }
+                else
+                {
+                    /* assign init val */
+                    accumulatedResult = Convert.ToDouble(InputView.Text);
+                }
             }
 
+            ExprView.Text += string.Format("{0}{1}", lastInputViewText, input);
+            justPressOpBtn = true;
             lastOp = op;
         }
         private void CalcFinal(object sender, RoutedEventArgs e)
