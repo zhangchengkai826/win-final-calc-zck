@@ -98,7 +98,9 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
-            <TextBlock HorizontalAlignment="Right" Name="ExprView" Text="" />
+            <ScrollViewer Name="ExprViewScroll" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <TextBlock HorizontalAlignment="Right" Name="ExprView" Text="" />
+            </ScrollViewer>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
             <TextBox Name="InputView" Text="0" />

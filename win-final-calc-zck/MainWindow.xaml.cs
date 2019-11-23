@@ -50,6 +50,18 @@ namespace win_final_calc_zck
             InitializeComponent();
             DataContext = this;
         }
+        public string ExprViewText
+        {
+            get
+            {
+                return ExprView.Text;
+            }
+            set
+            {
+                ExprView.Text = value;
+                ExprViewScroll.ScrollToRightEnd();
+            }
+        }
         private void EnterInput(object sender, RoutedEventArgs e)
         {
             if (justPressOpBtn)
@@ -104,7 +116,7 @@ namespace win_final_calc_zck
             lastOp = Operation.UNSPECIFIED;
             accumulatedResult = 0.0;
             justPressOpBtn = false;
-            ExprView.Text = "";
+            ExprViewText = "";
         }
         private void ClearAll(object sender, RoutedEventArgs e)
         {
@@ -130,12 +142,12 @@ namespace win_final_calc_zck
             if (justPressOpBtn)
             {
                 /* the user just pressed an op button, so this time, only change op but do not perform calculation */
-                ExprView.Text = ExprView.Text.Substring(0, ExprView.Text.Length - 1);
-                ExprView.Text += input;
+                ExprViewText = ExprViewText.Substring(0, ExprViewText.Length - 1);
+                ExprViewText += input;
             }
             else
             {
-                ExprView.Text += string.Format("{0}{1}", InputView.Text, input);
+                ExprViewText += string.Format("{0}{1}", InputView.Text, input);
                 if (lastOp != Operation.UNSPECIFIED)
                 {
                     try
