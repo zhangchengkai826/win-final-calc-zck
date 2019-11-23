@@ -113,15 +113,16 @@ namespace win_final_calc_zck
         {
             var input = Util.RetrieveTextFromBtn(sender as Button);
             var op = strToOpMap[input];
-            var lastInputViewText = InputView.Text;
             
             if (justPressOpBtn)
             {
                 /* the user just pressed an op button, so this time, only change op but do not perform calculation */
-                ExprView.Text = ExprView.Text.Substring(0, ExprView.Text.Length - 2);
+                ExprView.Text = ExprView.Text.Substring(0, ExprView.Text.Length - 1);
+                ExprView.Text += input;
             }
             else
             {
+                ExprView.Text += string.Format("{0}{1}", InputView.Text, input);
                 if (lastOp != Operation.UNSPECIFIED)
                 {
                     /* squash */
@@ -138,7 +139,6 @@ namespace win_final_calc_zck
                 }
             }
 
-            ExprView.Text += string.Format("{0}{1}", lastInputViewText, input);
             justPressOpBtn = true;
             lastOp = op;
         }
