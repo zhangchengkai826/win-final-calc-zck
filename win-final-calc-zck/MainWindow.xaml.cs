@@ -51,15 +51,15 @@ namespace win_final_calc_zck
         }
         private void EnterInput(object sender, RoutedEventArgs e)
         {
-            if(InputView.Text.Length >= INPUT_LIMIT)
-            {
-                Util.ShowWarning("Too many digits.");
-                return;
-            }
-            if(justPressOpBtn)
+            if (justPressOpBtn)
             {
                 ClearInputView(sender, e);
                 justPressOpBtn = false;
+            }
+            if (InputView.Text.Length >= INPUT_LIMIT)
+            {
+                Util.ShowWarning("Too many digits.");
+                return;
             }
             var input = Util.RetrieveTextFromBtn(sender as Button);
             try
@@ -124,7 +124,7 @@ namespace win_final_calc_zck
         {
             var input = Util.RetrieveTextFromBtn(sender as Button);
             var op = strToOpMap[input];
-            
+
             if (justPressOpBtn)
             {
                 /* the user just pressed an op button, so this time, only change op but do not perform calculation */
@@ -136,12 +136,16 @@ namespace win_final_calc_zck
                 ExprView.Text += string.Format("{0}{1}", InputView.Text, input);
                 if (lastOp != Operation.UNSPECIFIED)
                 {
-                    /* squash */
-                    var oprand = Convert.ToDouble(InputView.Text);
-                    var opFunc = opToFuncMap[lastOp];
-                    var result = opFunc(accumulatedResult, oprand);
-                    InputView.Text = result.ToString();
-                    accumulatedResult = result;
+                    try
+                    {
+                        accumulatedResult = PerformCalculation();
+                    }
+                    catch (InvalidCalculationException ex)
+                    {
+                        Util.ShowWarning(ex.Message);
+                        ClearAll(sender, e);
+                        return;
+                    }
                 }
                 else
                 {
@@ -153,16 +157,42 @@ namespace win_final_calc_zck
             justPressOpBtn = true;
             lastOp = op;
         }
+        private double PerformCalculation()
+        {
+            var oprand = Convert.ToDouble(InputView.Text);
+            var opFunc = opToFuncMap[lastOp];
+
+            if (oprand == 0.0 && lastOp == Operation.DIV)
+            {
+                throw new InvalidCalculationException("Cannot divide by zero.");
+            }
+
+            var result = opFunc(accumulatedResult, oprand);
+
+            if (double.IsInfinity(result))
+            {
+                throw new InvalidCalculationException("Overflow.");
+            }
+
+            InputView.Text = result.ToString();
+            return result;
+        }
         private void CalcFinal(object sender, RoutedEventArgs e)
         {
+
             /* if user does not specify an operation before hand, do nothing */
             if (lastOp != Operation.UNSPECIFIED)
             {
-                var oprand = Convert.ToDouble(InputView.Text);
-                var opFunc = opToFuncMap[lastOp];
-                var result = opFunc(accumulatedResult, oprand);
-                InputView.Text = result.ToString();
-
+                try
+                {
+                    PerformCalculation();
+                }
+                catch (InvalidCalculationException ex)
+                {
+                    Util.ShowWarning(ex.Message);
+                    ClearAll(sender, e);
+                    return;
+                }
                 /* reset */
                 Reset();
             }
