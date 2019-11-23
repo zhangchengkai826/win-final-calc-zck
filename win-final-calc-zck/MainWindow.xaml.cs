@@ -36,7 +36,7 @@ namespace win_final_calc_zck
             { Operation.MUL, OperationExtern.Mul },
             { Operation.DIV, OperationExtern.Div },
         };
-        private static readonly int INPUT_LIMIT = 16;
+        private static readonly int INPUT_LIMIT = 12;
         private static readonly int PRECISION_LIMIT = 9;
         private Operation lastOp = Operation.UNSPECIFIED;
         /* use double instead of string or float as internal representation to preserve more precision in a series of operations */
