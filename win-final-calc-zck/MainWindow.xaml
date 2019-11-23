@@ -46,7 +46,8 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -60,104 +61,107 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
+            <TextBlock HorizontalAlignment="Right" Name="ExprView" Text="" />
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
             <TextBox Name="InputView" Text="0" />
         </Grid>
         
-        <Grid Grid.Row="5" Grid.Column="0">
+        <Grid Grid.Row="6" Grid.Column="0">
             <Button Click="EnterInput">
                 <TextBlock Text="." />
             </Button>
         </Grid>
-        <Grid Grid.Row="5" Grid.Column="1">
+        <Grid Grid.Row="6" Grid.Column="1">
             <Button Click="EnterInput">
                 <TextBlock Text="0" />
             </Button>
         </Grid>
-        <Grid Grid.Row="5" Grid.Column="2">
+        <Grid Grid.Row="6" Grid.Column="2">
             <Button>
                 <TextBlock Text="=" />
             </Button>
         </Grid>
-        <Grid Grid.Row="5" Grid.Column="3">
+        <Grid Grid.Row="6" Grid.Column="3">
             <Button Click="DoOperation">
                 <TextBlock Text="/" />
             </Button>
         </Grid>
         
-        <Grid Grid.Row="4" Grid.Column="0">
+        <Grid Grid.Row="5" Grid.Column="0">
             <Button Click="EnterInput">
                 <TextBlock Text="1" />
             </Button>
         </Grid>
-        <Grid Grid.Row="4" Grid.Column="1">
+        <Grid Grid.Row="5" Grid.Column="1">
             <Button Click="EnterInput">
                 <TextBlock Text="2" />
             </Button>
         </Grid>
-        <Grid Grid.Row="4" Grid.Column="2">
+        <Grid Grid.Row="5" Grid.Column="2">
             <Button Click="EnterInput">
                 <TextBlock Text="3" />
             </Button>
         </Grid>
-        <Grid Grid.Row="4" Grid.Column="3">
+        <Grid Grid.Row="5" Grid.Column="3">
             <Button Click="DoOperation">
                 <TextBlock Text="x" />
             </Button>
         </Grid>
         
-        <Grid Grid.Row="3" Grid.Column="0">
+        <Grid Grid.Row="4" Grid.Column="0">
             <Button Click="EnterInput">
                 <TextBlock Text="4" />
             </Button>
         </Grid>
-        <Grid Grid.Row="3" Grid.Column="1">
+        <Grid Grid.Row="4" Grid.Column="1">
             <Button Click="EnterInput">
                 <TextBlock Text="5" />
             </Button>
         </Grid>
-        <Grid Grid.Row="3" Grid.Column="2">
+        <Grid Grid.Row="4" Grid.Column="2">
             <Button Click="EnterInput">
                 <TextBlock Text="6" />
             </Button>
         </Grid>
-        <Grid Grid.Row="3" Grid.Column="3">
+        <Grid Grid.Row="4" Grid.Column="3">
             <Button Click="DoOperation">
                 <TextBlock Text="-" />
             </Button>
         </Grid>
         
-        <Grid Grid.Row="2" Grid.Column="0">
+        <Grid Grid.Row="3" Grid.Column="0">
             <Button Click="EnterInput">
                 <TextBlock Text="7" />
             </Button>
         </Grid>
-        <Grid Grid.Row="2" Grid.Column="1">
+        <Grid Grid.Row="3" Grid.Column="1">
             <Button Click="EnterInput">
                 <TextBlock Text="8" />
             </Button>
         </Grid>
-        <Grid Grid.Row="2" Grid.Column="2">
+        <Grid Grid.Row="3" Grid.Column="2">
             <Button Click="EnterInput">
                 <TextBlock Text="9" />
             </Button>
         </Grid>
-        <Grid Grid.Row="2" Grid.Column="3">
+        <Grid Grid.Row="3" Grid.Column="3">
             <Button Click="DoOperation">
                 <TextBlock Text="+" />
             </Button>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="0">
+        <Grid Grid.Row="2" Grid.Column="0">
             <Button Click="Clear">
                 <TextBlock Text="CE" />
             </Button>
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="2" Grid.Column="1">
             <Button Click="ClearAll">
                 <TextBlock Text="C" />
             </Button>
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
+        <Grid Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2">
             <Button Click="Backspace">
                 <TextBlock Text="&lt;=" />
             </Button>

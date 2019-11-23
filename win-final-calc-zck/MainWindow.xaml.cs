@@ -28,12 +28,19 @@ namespace win_final_calc_zck
             {"/", Operation.DIV },
         };
         private Operation op = Operation.UNSPECIFIED;
+        /* when we enter an operation button, e.g. +, the InputView won't be immediately cleared, but will be cleared when user enter the next input */
+        private bool prepareToClear = false;
         public MainWindow()
         {
             InitializeComponent();
         }
         private void EnterInput(object sender, RoutedEventArgs e)
         {
+            if(prepareToClear)
+            {
+                Clear(sender, e);
+                prepareToClear = false;
+            }
             var input = Util.RetrieveTextFromBtn(sender as Button);
             try
             {
@@ -90,8 +97,13 @@ namespace win_final_calc_zck
         private void DoOperation(object sender, RoutedEventArgs e)
         {
             var input = Util.RetrieveTextFromBtn(sender as Button);
+            prepareToClear = true;
+            ExprView.Text += string.Format("{0}{1}", InputView.Text, input);
             op = opMap[input];
-            Clear(sender, e);
+            //switch (op)
+            //{
+                
+            //}
         }
     }
 }
