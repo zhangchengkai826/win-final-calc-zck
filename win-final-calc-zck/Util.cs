@@ -18,5 +18,9 @@ namespace win_final_calc_zck
             }
             return tb.Text;
         }
+        public static string DoubleToStr(double a, int precision)
+        {
+            return "";
+        }
     }
 }

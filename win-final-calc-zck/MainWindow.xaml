@@ -78,7 +78,7 @@
             </Button>
         </Grid>
         <Grid Grid.Row="6" Grid.Column="2">
-            <Button>
+            <Button Click="CalcFinal">
                 <TextBlock Text="=" />
             </Button>
         </Grid>
@@ -152,7 +152,7 @@
         </Grid>
 
         <Grid Grid.Row="2" Grid.Column="0">
-            <Button Click="Clear">
+            <Button Click="ClearInputView">
                 <TextBlock Text="CE" />
             </Button>
         </Grid>

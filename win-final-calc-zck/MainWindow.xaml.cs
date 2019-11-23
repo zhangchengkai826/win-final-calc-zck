@@ -20,14 +20,23 @@ namespace win_final_calc_zck
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static readonly Dictionary<string, Operation> opMap = new Dictionary<string, Operation>()
+        private static readonly Dictionary<string, Operation> strToOpMap = new Dictionary<string, Operation>()
         {
             {"+", Operation.ADD },
             {"-", Operation.SUB },
             {"x", Operation.MUL },
             {"/", Operation.DIV },
         };
-        private Operation op = Operation.UNSPECIFIED;
+        private static readonly Dictionary<Operation, BinaryOpExtern> opToFuncMap = new Dictionary<Operation, BinaryOpExtern>()
+        {
+            { Operation.ADD, OperationExtern.Add },
+            { Operation.SUB, OperationExtern.Sub },
+            { Operation.MUL, OperationExtern.Mul },
+            { Operation.DIV, OperationExtern.Div },
+        };
+        private Operation lastOp = Operation.UNSPECIFIED;
+        /* use double instead of string or float as internal representation to preserve more precision in a series of operations */
+        private double accumulatedResult = 0.0;
         /* when we enter an operation button, e.g. +, the InputView won't be immediately cleared, but will be cleared when user enter the next input */
         private bool prepareToClear = false;
         public MainWindow()
@@ -38,7 +47,7 @@ namespace win_final_calc_zck
         {
             if(prepareToClear)
             {
-                Clear(sender, e);
+                ClearInputView(sender, e);
                 prepareToClear = false;
             }
             var input = Util.RetrieveTextFromBtn(sender as Button);
@@ -74,14 +83,20 @@ namespace win_final_calc_zck
                 MessageBox.Show(ex.ToString());
             }
         }
-        private void Clear(object sender, RoutedEventArgs e)
+        private void ClearInputView(object sender, RoutedEventArgs e)
         {
             InputView.Text = "0";
         }
+        private void Reset()
+        {
+            lastOp = Operation.UNSPECIFIED;
+            accumulatedResult = 0.0;
+            ExprView.Text = "";
+        }
         private void ClearAll(object sender, RoutedEventArgs e)
         {
-            Clear(sender, e);
-            op = Operation.UNSPECIFIED;
+            ClearInputView(sender, e);
+            Reset();
         }
         private void Backspace(object sender, RoutedEventArgs e)
         {
@@ -96,14 +111,42 @@ namespace win_final_calc_zck
         }
         private void DoOperation(object sender, RoutedEventArgs e)
         {
-            var input = Util.RetrieveTextFromBtn(sender as Button);
             prepareToClear = true;
+            
+            var input = Util.RetrieveTextFromBtn(sender as Button);
             ExprView.Text += string.Format("{0}{1}", InputView.Text, input);
-            op = opMap[input];
-            //switch (op)
-            //{
-                
-            //}
+            var op = strToOpMap[input];
+            
+            if(lastOp != Operation.UNSPECIFIED)
+            {
+                /* squash */
+                var oprand = Convert.ToDouble(InputView.Text);
+                var opFunc = opToFuncMap[lastOp];
+                var result = opFunc(accumulatedResult, oprand);
+                InputView.Text = result.ToString();
+                accumulatedResult = result;
+            }
+            else
+            {
+                /* assign init val */
+                accumulatedResult = Convert.ToDouble(InputView.Text);
+            }
+
+            lastOp = op;
+        }
+        private void CalcFinal(object sender, RoutedEventArgs e)
+        {
+            /* if user does not specify an operation before hand, do nothing */
+            if (lastOp != Operation.UNSPECIFIED)
+            {
+                var oprand = Convert.ToDouble(InputView.Text);
+                var opFunc = opToFuncMap[lastOp];
+                var result = opFunc(accumulatedResult, oprand);
+                InputView.Text = result.ToString();
+
+                /* reset */
+                Reset();
+            }
         }
     }
 }
