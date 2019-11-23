@@ -44,6 +44,43 @@
             </Setter>
         </Style>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="D0" Command="{Binding KeyCmd}" CommandParameter="0" />
+        <KeyBinding Key="NumPad0" Command="{Binding KeyCmd}" CommandParameter="0" />
+        <KeyBinding Key="D1" Command="{Binding KeyCmd}" CommandParameter="1" />
+        <KeyBinding Key="NumPad1" Command="{Binding KeyCmd}" CommandParameter="1" />
+        <KeyBinding Key="D2" Command="{Binding KeyCmd}" CommandParameter="2" />
+        <KeyBinding Key="NumPad2" Command="{Binding KeyCmd}" CommandParameter="2" />
+        <KeyBinding Key="D3" Command="{Binding KeyCmd}" CommandParameter="3" />
+        <KeyBinding Key="NumPad3" Command="{Binding KeyCmd}" CommandParameter="3" />
+        <KeyBinding Key="D4" Command="{Binding KeyCmd}" CommandParameter="4" />
+        <KeyBinding Key="NumPad4" Command="{Binding KeyCmd}" CommandParameter="4" />
+        <KeyBinding Key="D5" Command="{Binding KeyCmd}" CommandParameter="5" />
+        <KeyBinding Key="NumPad5" Command="{Binding KeyCmd}" CommandParameter="5" />
+        <KeyBinding Key="D6" Command="{Binding KeyCmd}" CommandParameter="6" />
+        <KeyBinding Key="NumPad6" Command="{Binding KeyCmd}" CommandParameter="6" />
+        <KeyBinding Key="D7" Command="{Binding KeyCmd}" CommandParameter="7" />
+        <KeyBinding Key="NumPad7" Command="{Binding KeyCmd}" CommandParameter="7" />
+        <KeyBinding Key="D8" Command="{Binding KeyCmd}" CommandParameter="8" />
+        <KeyBinding Key="NumPad8" Command="{Binding KeyCmd}" CommandParameter="8" />
+        <KeyBinding Key="D9" Command="{Binding KeyCmd}" CommandParameter="9" />
+        <KeyBinding Key="NumPad9" Command="{Binding KeyCmd}" CommandParameter="9" />
+        <KeyBinding Gesture="Shift+OemPlus" Command="{Binding KeyCmd}" CommandParameter="+" />
+        <KeyBinding Key="Add" Command="{Binding KeyCmd}" CommandParameter="+" />
+        <KeyBinding Key="OemMinus" Command="{Binding KeyCmd}" CommandParameter="-" />
+        <KeyBinding Key="Subtract" Command="{Binding KeyCmd}" CommandParameter="-" />
+        <KeyBinding Key="D8" Modifiers="Shift" Command="{Binding KeyCmd}" CommandParameter="x" />
+        <KeyBinding Key="Multiply" Command="{Binding KeyCmd}" CommandParameter="x" />
+        <KeyBinding Key="OemQuestion" Command="{Binding KeyCmd}" CommandParameter="/" />
+        <KeyBinding Key="Divide" Command="{Binding KeyCmd}" CommandParameter="/" />
+        <KeyBinding Key="OemPeriod" Command="{Binding KeyCmd}" CommandParameter="." />
+        <KeyBinding Key="Decimal" Command="{Binding KeyCmd}" CommandParameter="." />
+        <KeyBinding Key="OemPlus" Command="{Binding KeyCmd}" CommandParameter="=" />
+        <KeyBinding Key="Return" Command="{Binding KeyCmd}" CommandParameter="=" />
+        <KeyBinding Key="Delete" Command="{Binding KeyCmd}" CommandParameter="CE" />
+        <KeyBinding Key="Esc" Command="{Binding KeyCmd}" CommandParameter="C" />
+        <KeyBinding Key="Backspace" Command="{Binding KeyCmd}" CommandParameter="&lt;=" />
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

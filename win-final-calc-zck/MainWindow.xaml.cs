@@ -42,6 +42,7 @@ namespace win_final_calc_zck
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
         }
         private void EnterInput(object sender, RoutedEventArgs e)
         {
@@ -154,6 +155,16 @@ namespace win_final_calc_zck
 
                 /* reset */
                 Reset();
+            }
+        }
+        private ICommand _keyCmd;
+        public ICommand KeyCmd
+        {
+            get
+            {
+                return _keyCmd ?? (_keyCmd = new RelayCommand<string> ( x => {
+                    MessageBox.Show(x);
+                }));
             }
         }
     }

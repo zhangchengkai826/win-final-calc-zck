@@ -61,6 +61,7 @@
     </ApplicationDefinition>
     <Compile Include="BinaryOpExtern.cs" />
     <Compile Include="OperationExtern.cs" />
+    <Compile Include="RelayCommand.cs" />
     <Compile Include="Util.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
