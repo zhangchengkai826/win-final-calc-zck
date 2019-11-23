@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:win_final_calc_zck"
         mc:Ignorable="d"
-        Title="Calculator (章成凯 2017302580093)" Height="600" Width="450">
+        Title="Calculator (章成凯 2017302580093)" Height="600" Width="450" Loaded="Window_Loaded">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="35" />

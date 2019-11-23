@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -34,11 +36,14 @@ namespace win_final_calc_zck
             { Operation.MUL, OperationExtern.Mul },
             { Operation.DIV, OperationExtern.Div },
         };
+        private static readonly int INPUT_LIMIT = 16;
         private Operation lastOp = Operation.UNSPECIFIED;
         /* use double instead of string or float as internal representation to preserve more precision in a series of operations */
         private double accumulatedResult = 0.0;
         /* when we enter an operation button, e.g. +, the InputView won't be immediately cleared, but will be cleared when user enter the next input */
         private bool justPressOpBtn = false;
+        /* map button text to button */
+        private Dictionary<string, Button> btnMap = new Dictionary<string, Button>();
         public MainWindow()
         {
             InitializeComponent();
@@ -46,6 +51,11 @@ namespace win_final_calc_zck
         }
         private void EnterInput(object sender, RoutedEventArgs e)
         {
+            if(InputView.Text.Length >= INPUT_LIMIT)
+            {
+                Util.ShowWarning("Too many digits.");
+                return;
+            }
             if(justPressOpBtn)
             {
                 ClearInputView(sender, e);
@@ -81,7 +91,7 @@ namespace win_final_calc_zck
             }
             catch(IncorrectInputFormatException ex)
             {
-                MessageBox.Show(ex.ToString());
+                Util.ShowWarning(ex.Message);
             }
         }
         private void ClearInputView(object sender, RoutedEventArgs e)
@@ -163,8 +173,24 @@ namespace win_final_calc_zck
             get
             {
                 return _keyCmd ?? (_keyCmd = new RelayCommand<string> ( x => {
-                    MessageBox.Show(x);
+                    if (btnMap.ContainsKey(x))
+                    {
+                        var btn = btnMap[x];
+                        /* simulate button click programmatically */
+                        var setIsPressedFunc = typeof(Button).GetMethod("set_IsPressed", BindingFlags.Instance | BindingFlags.NonPublic);
+                        setIsPressedFunc.Invoke(btn, new object[] { true });
+                        btn.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+                        setIsPressedFunc.Invoke(btn, new object[] { false });
+                    }
                 }));
+            }
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            foreach (var btn in Util.FindVisualChildren<Button>(this))
+            {
+                var txt = Util.RetrieveTextFromBtn(btn);
+                btnMap[txt] = btn;
             }
         }
     }
